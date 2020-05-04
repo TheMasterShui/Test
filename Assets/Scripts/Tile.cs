@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    [Header("Tile Info")]
     public string tileType;
     public string tileName;   
 
