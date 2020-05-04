@@ -12,7 +12,11 @@ public class jsonController : MonoBehaviour
     // Set the sprites of tiles and tile prefab in the inspector
     [Header("Tile Stuff")]
     public Sprite[] tiles;
-    public GameObject tile;      
+    public GameObject tile;
+
+    [Header("Map Stuff")]
+    public int matrixMapX = 24;
+    public int matrixMapY = 24;
 
     private int randomNumber;
 
@@ -78,9 +82,9 @@ public class jsonController : MonoBehaviour
         Vector3 pos;
 
         // 24x24 tiles map
-        for (int y = 0; y < 24; y++)
+        for (int y = 0; y < matrixMapY; y++)
         {
-            for(int x = 0; x < 24; x++)
+            for(int x = 0; x < matrixMapX; x++)
             {
                 // Set the random number from 0-6
                 randomNumber = Random.Range(0, 7);
