@@ -10,13 +10,24 @@ public class jsonController : MonoBehaviour
     public Sprite[] tiles;
     public GameObject tile;
 
+    public int currentNumberOfHouses = 0;
+
+    private int randomNumber;
+
+    public int mapWidth;
+    public int mapHeight;
+    public int numberOfHouses;
+    public List<tiles> tileList;
+
     jsonMapData jsonData;
+    GameManager gm;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(getData());
+        gm = GetComponent<GameManager>();
 
-        CreateMap();
+        StartCoroutine(getData());
     }
 
     IEnumerator getData()
@@ -33,33 +44,48 @@ public class jsonController : MonoBehaviour
         else
         {
             processJsonData(www.downloadHandler.text);
-            
+            CreateMap();
+            gm.UpdateNumberOfHouses();
         }        
     }
 
     private void processJsonData(string _url)
     {
-        jsonData = JsonUtility.FromJson<jsonMapData>(_url);        
-        Debug.Log(jsonData.map_height);
-        Debug.Log(jsonData.tiles[0].type);
-
+        jsonData = JsonUtility.FromJson<jsonMapData>(_url);
+        mapHeight = jsonData.map_height;
+        mapWidth = jsonData.map_width;
+        numberOfHouses = jsonData.number_of_houses;
+        tileList = jsonData.tiles;
     }
 
     public void CreateMap()
     {
         Vector3 pos;
 
-        for (int x = 0; x < 16; x++)
+        for (int y = 0; y < 24; y++)
         {
-            for(int y = 0; y < 16; y++)
+            for(int x = 0; x < 24; x++)
             {
+                randomNumber = Random.Range(0, 7);
+
                 pos.x = x;
-                pos.y = y;
+                pos.y = y;              
                 pos.z = 0;
 
-                Instantiate(tile, pos, Quaternion.identity);
-                SpriteRenderer spriteRenderer = tile.GetComponent<SpriteRenderer>();
-                spriteRenderer.sprite = tiles[Random.Range(0, 5)];
+                GameObject tileObject = Instantiate(tile, pos, Quaternion.identity);
+                tileObject.transform.parent = GameObject.Find("TilesContainer").transform;
+                SpriteRenderer spriteRenderer = tileObject.GetComponent<SpriteRenderer>();
+                Tile currentTile = tileObject.GetComponent<Tile>();
+
+                spriteRenderer.sprite = tiles[randomNumber];
+                if (randomNumber == 5 || randomNumber == 6)
+                {
+                    currentNumberOfHouses++;                 
+                }          
+
+                currentTile.tileType = tileList[randomNumber].type;
+                currentTile.tileName = tileList[randomNumber].name;
+                
             }
         }
     }

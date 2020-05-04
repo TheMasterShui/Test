@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 104103204310533044}
   - component: {fileID: 104103204310533047}
-  - component: {fileID: 1507113025706779595}
+  - component: {fileID: 833256123279205029}
   - component: {fileID: -1139392015525017277}
   m_Layer: 0
   m_Name: Tile
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1507113025706779595
+--- !u!61 &833256123279205029
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca67dde7885c59348a6764662edddd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileType: 
+  tileName: 
